@@ -1,24 +1,26 @@
-# Основной класс компьютера. Инициализирую стандартное поведение всех ПК
-# и задаю проверку на тип, пока что их 2, иначе принудительно вызываем ошибку
+COMPUTER_TYPES = {
+    "Стандарт": 100,
+    "Игровой": 200
+}
+
+
 class Computer:
     def __init__(self, computer_id, name, computer_type):
+        if computer_type not in COMPUTER_TYPES:
+            raise ValueError("Неизвестный тип компьютера")
+
         self.id = computer_id
         self.name = name
         self.type = computer_type
         self.status = "Доступен"
+        self.hourly_price = COMPUTER_TYPES[computer_type]
 
-        if computer_type == "Стандарт":
-            self.hourly_price = 100
-        elif computer_type == "Игровой":
-            self.hourly_price = 200
-        else:
-            raise ValueError("Неизвестный тип компьютера")
 
-# Класс бронирования
 class Booking:
-    def __init__(self, booking_id, computer_id, customer_name, hours):
+    def __init__(self, booking_id, computer_id, customer_name, hours, total_price=0):
         self.id = booking_id
         self.computer_id = computer_id
         self.customer_name = customer_name
         self.hours = hours
+        self.total_price = total_price
         self.status = "Активно"

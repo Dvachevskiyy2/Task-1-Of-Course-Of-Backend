@@ -77,19 +77,16 @@ echo
 echo
 echo "========== 5. ПРОВЕРКА ОШИБОК =========="
 
-# Компьютер № 1 уже занят
 curl -sS -i -X POST "$BASE_URL/bookings" \
   -H "Content-Type: application/json" \
   --data-binary '{"computer_id":1,"customer_name":"\u0414\u0440\u0443\u0433\u043e\u0439","hours":1}'
 echo
 
-# Неверный тип компьютера
 curl -sS -i -X POST "$BASE_URL/computers" \
   -H "Content-Type: application/json" \
   --data-binary '{"name":"PC-BAD","type":"\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u044b\u0439"}'
 echo
 
-# Неположительное количество часов
 curl -sS -i -X POST "$BASE_URL/bookings" \
   -H "Content-Type: application/json" \
   --data-binary '{"computer_id":2,"customer_name":"Test","hours":0}'
@@ -120,7 +117,6 @@ echo "========== 7. ЗАВЕРШЕНИЕ И ОТМЕНА =========="
 curl -sS -i -X POST "$BASE_URL/bookings/1/complete"
 echo
 
-# Попытка изменить завершённое бронирование
 curl -sS -i -X PATCH "$BASE_URL/bookings/1" \
   -H "Content-Type: application/json" \
   --data-binary '{"customer_name":"Test","hours":1}'
